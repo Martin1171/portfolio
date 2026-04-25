@@ -1,3 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Martín Viscaglia - Cybersecurity Portfolio</title>
+
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+  }
+
+  body {
+    background: #0a0f1f;
+    color: #e2e8f0;
+    overflow-x: hidden;
+  }
+
+  /* Floating squares background */
+  .background {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .square {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background: rgba(56, 189, 248, 0.08);
+    border: 1px solid rgba(56, 189, 248, 0.25);
+    border-radius: 8px;
+    animation: float 15s linear infinite;
+  }
+
+  .square:nth-child(1) { left: 10%; animation-duration: 18s; }
+  .square:nth-child(2) { left: 25%; animation-duration: 22s; }
+  .square:nth-child(3) { left: 40%; animation-duration: 16s; }
+  .square:nth-child(4) { left: 60%; animation-duration: 20s; }
+  .square:nth-child(5) { left: 80%; animation-duration: 14s; }
+
+  @keyframes float {
+    0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+    50% { opacity: 1; }
+    100% { transform: translateY(-120vh) rotate(360deg); opacity: 0; }
+  }
+
+  header {
+    text-align: center;
+    padding: 60px 20px 20px;
+    position: relative;
+    z-index: 1;
+  }
+
+  header h1 {
+    font-size: 2.5rem;
+    color: #38bdf8;
+  }
+
+  header p {
+    color: #94a3b8;
+    margin-top: 10px;
+  }
+
+  nav {
+    text-align: center;
+    padding: 15px;
+    position: sticky;
+    top: 0;
+    background: rgba(15, 23, 42, 0.85);
+    backdrop-filter: blur(10px);
+    z-index: 2;
+  }
+
+  nav a {
+    color: #e2e8f0;
+    margin: 0 12px;
+    text-decoration: none;
+  }
+
+  nav a:hover {
+    color: #38bdf8;
+  }
+
+  section {
+    max-width: 900px;
+    margin: auto;
+    padding: 60px 20px;
+    position: relative;
+    z-index: 1;
+  }
+
+  h2 {
+    color: #38bdf8;
+    margin-bottom: 15px;
+  }
+
+  .card {
+    background: rgba(30, 41, 59, 0.85);
+    padding: 20px;
+    border-radius: 12px;
+    margin-top: 15px;
+    transition: 0.3s;
+  }
+
+  .card:hover {
+    transform: translateY(-5px);
+  }
+
+  ul {
+    padding-left: 20px;
+    margin-top: 10px;
+  }
+
+  .profile {
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  .profile img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 3px solid #38bdf8;
+    object-fit: cover;
+  }
+
+  footer {
+    text-align: center;
+    padding: 25px;
+    background: #0f172a;
+    color: #64748b;
+  }
+
+  a {
+    color: #38bdf8;
+  }
+</style>
+</head>
+
+<body>
+
+<div class="background">
+  <div class="square"></div>
+  <div class="square"></div>
+  <div class="square"></div>
+  <div class="square"></div>
+  <div class="square"></div>
+</div>
+
 <header>
   <h1>Martín Viscaglia Serrano</h1>
   <p>ASIX Student | Cybersecurity & Digital Forensics Enthusiast</p>
@@ -21,11 +176,11 @@
   <div class="card">
     <p>
       I am a student of ASIX (Network Systems Administration) with a strong interest in cybersecurity,
-      especially in digital forensics.
+      especially digital forensics.
     </p>
 
     <p>
-      I am motivated by understanding how cyberattacks happen, how systems are compromised,
+      I am passionate about understanding how cyberattacks happen, how systems are compromised,
       and how digital evidence can be analyzed to reconstruct security incidents.
     </p>
 
@@ -44,9 +199,9 @@
     <ul>
       <li>Linux and Windows Server administration</li>
       <li>Network configuration (VLANs, DHCP, DNS, routing)</li>
-      <li>Network monitoring and analysis (Wireshark)</li>
-      <li>Basic cybersecurity concepts (hardening, access control)</li>
-      <li>Python and Bash scripting basics</li>
+      <li>Wireshark and network analysis</li>
+      <li>Cybersecurity basics (hardening, access control)</li>
+      <li>Python and Bash scripting</li>
       <li>PostgreSQL database management</li>
       <li>Virtualization and system deployment</li>
     </ul>
@@ -54,10 +209,9 @@
     <h3>Soft Skills</h3>
     <ul>
       <li>Teamwork</li>
-      <li>Problem-solving</li>
+      <li>Problem solving</li>
       <li>Responsibility</li>
       <li>Autonomous learning</li>
-      <li>Adaptability</li>
     </ul>
   </div>
 </section>
@@ -72,12 +226,7 @@
 
     <p>
       I want to focus my career on investigating security incidents, analyzing digital evidence,
-      and understanding the methods used in cyberattacks to improve system defense.
-    </p>
-
-    <p>
-      I am still exploring different areas of cybersecurity, but forensic analysis and incident response
-      are the fields that attract me the most.
+      and understanding cyberattack techniques to improve system defense.
     </p>
   </div>
 </section>
@@ -87,15 +236,15 @@
 
   <div class="card">
     <p>
-      In the short term, I plan to finish my ASIX studies and continue gaining practical experience through projects.
+      I plan to complete my ASIX studies and continue developing practical experience through real projects.
     </p>
 
     <p>
-      In the medium term, I aim to study a Master's degree in Cybersecurity to specialize in advanced security topics.
+      In the future, I aim to study a Master's degree in Cybersecurity to specialize further.
     </p>
 
     <p>
-      In the long term, I want to work in a cybersecurity role focused on digital forensics and incident investigation.
+      My long-term goal is to work in digital forensics and incident response.
     </p>
   </div>
 </section>
@@ -106,20 +255,19 @@
   <div class="card">
     <h3>Hotel Costa Management System</h3>
     <p>
-      Full-stack desktop application developed in Python with PostgreSQL integration.
+      Python + PostgreSQL desktop application for hotel management.
     </p>
 
     <ul>
-      <li>User authentication system (login and registration)</li>
-      <li>Hotel reservation management</li>
-      <li>Client database handling</li>
-      <li>Graphical interface using Tkinter</li>
-      <li>Data export and API communication (Mossos d'Esquadra system simulation)</li>
+      <li>User login and registration system</li>
+      <li>Reservation management</li>
+      <li>Client database system</li>
+      <li>Graphical interface with Tkinter</li>
+      <li>API integration and data export</li>
     </ul>
 
     <p>
-      This project helped me improve my skills in software development, database design,
-      and system integration.
+      This project helped me improve backend development, databases, and system integration skills.
     </p>
   </div>
 </section>
@@ -132,3 +280,10 @@
     <p>GitHub: <a href="https://github.com/zzz-l629" target="_blank">github.com/zzz-l629</a></p>
   </div>
 </section>
+
+<footer>
+  © 2026 Martín Viscaglia - Cybersecurity Portfolio
+</footer>
+
+</body>
+</html>
