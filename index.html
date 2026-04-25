@@ -6,35 +6,82 @@
   <title>Martín Viscaglia - Cybersecurity Portfolio</title>
 
   <style>
-    body {
-      font-family: Arial, sans-serif;
+    * {
       margin: 0;
-      background: #0f172a;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #0a0f1f;
       color: #e2e8f0;
-      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Floating background squares */
+    .background {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .square {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      animation: float 12s linear infinite;
+      border-radius: 8px;
+    }
+
+    .square:nth-child(1) { left: 10%; animation-duration: 15s; }
+    .square:nth-child(2) { left: 25%; animation-duration: 18s; }
+    .square:nth-child(3) { left: 40%; animation-duration: 12s; }
+    .square:nth-child(4) { left: 60%; animation-duration: 20s; }
+    .square:nth-child(5) { left: 80%; animation-duration: 16s; }
+
+    @keyframes float {
+      0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+      50% { opacity: 1; }
+      100% { transform: translateY(-120vh) rotate(360deg); opacity: 0; }
     }
 
     header {
-      background: #111827;
-      padding: 20px;
       text-align: center;
+      padding: 60px 20px 30px;
+      position: relative;
+      z-index: 1;
     }
 
     header h1 {
-      margin: 0;
+      font-size: 2.5rem;
       color: #38bdf8;
     }
 
+    header p {
+      color: #94a3b8;
+      margin-top: 10px;
+    }
+
     nav {
-      background: #1f2937;
-      padding: 10px;
       text-align: center;
+      padding: 15px;
+      position: sticky;
+      top: 0;
+      background: rgba(15, 23, 42, 0.8);
+      backdrop-filter: blur(10px);
+      z-index: 2;
     }
 
     nav a {
       color: #e2e8f0;
-      margin: 0 15px;
+      margin: 0 12px;
       text-decoration: none;
+      transition: 0.3s;
     }
 
     nav a:hover {
@@ -44,162 +91,144 @@
     section {
       max-width: 900px;
       margin: auto;
-      padding: 40px 20px;
+      padding: 60px 20px;
+      position: relative;
+      z-index: 1;
     }
 
     h2 {
       color: #38bdf8;
-      border-bottom: 1px solid #334155;
-      padding-bottom: 5px;
+      margin-bottom: 15px;
+    }
+
+    .card {
+      background: rgba(30, 41, 59, 0.8);
+      padding: 20px;
+      border-radius: 12px;
+      margin-top: 15px;
+      transition: transform 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
     }
 
     ul {
       padding-left: 20px;
     }
 
-    footer {
+    /* Profile image */
+    .profile {
       text-align: center;
-      padding: 20px;
-      background: #111827;
-      margin-top: 40px;
+      margin-top: 20px;
     }
 
-    .card {
-      background: #1f2937;
-      padding: 20px;
-      border-radius: 10px;
-      margin-top: 15px;
+    .profile img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      border: 3px solid #38bdf8;
+      object-fit: cover;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      background: #0f172a;
+      color: #64748b;
     }
   </style>
 </head>
 
 <body>
 
+<div class="background">
+  <div class="square"></div>
+  <div class="square"></div>
+  <div class="square"></div>
+  <div class="square"></div>
+  <div class="square"></div>
+</div>
+
 <header>
-  <h1>Martín Ignacio Viscaglia Serrano</h1>
-  <p>ASIX Student | Cybersecurity & Digital Forensics Enthusiast</p>
+  <h1>Martín Viscaglia</h1>
+  <p>Cybersecurity & Digital Forensics Student</p>
+
+  <div class="profile">
+    <img src="profile.jpg" alt="Profile Photo">
+    <p style="margin-top:10px; color:#94a3b8;">Replace 'profile.jpg' with your image file</p>
+  </div>
 </header>
 
 <nav>
   <a href="#home">Home</a>
   <a href="#skills">Skills</a>
   <a href="#specialization">Specialization</a>
-  <a href="#plan">Future Plan</a>
+  <a href="#plan">Future</a>
   <a href="#projects">Projects</a>
   <a href="#contact">Contact</a>
 </nav>
 
-<!-- HOME -->
 <section id="home">
   <h2>About Me</h2>
   <div class="card">
-    <p>
-      I am a student of ASIX (Network Systems Administration) with a strong interest in cybersecurity, 
-      especially in the field of digital forensics.
-    </p>
-
-    <p>
-      This website presents my professional profile, technical skills, and projects developed during my studies. 
-      My goal is to continue growing in the cybersecurity field and specialize in digital forensic analysis 
-      and incident investigation.
-    </p>
+    I am a student of ASIX passionate about cybersecurity, especially digital forensics. My goal is to understand how cyberattacks happen and how to investigate them.
   </div>
 </section>
 
-<!-- SKILLS -->
 <section id="skills">
   <h2>Skills</h2>
-
   <div class="card">
-    <h3>Technical Skills</h3>
+    <h3>Technical</h3>
     <ul>
-      <li>Linux and Windows Server system administration</li>
-      <li>Network configuration: VLANs, DHCP, DNS, routing</li>
-      <li>Server and network services management</li>
-      <li>Cybersecurity fundamentals: hardening and access control</li>
-      <li>Network analysis tools (Wireshark)</li>
-      <li>Basic programming in Python and Bash</li>
-      <li>Database management: PostgreSQL</li>
+      <li>Linux & Windows Server</li>
+      <li>Networking (DNS, DHCP, VLANs)</li>
+      <li>Wireshark & network analysis</li>
+      <li>Python & Bash basics</li>
+      <li>PostgreSQL</li>
     </ul>
 
     <h3>Soft Skills</h3>
     <ul>
       <li>Teamwork</li>
-      <li>Problem-solving</li>
+      <li>Problem solving</li>
       <li>Responsibility</li>
     </ul>
   </div>
 </section>
 
-<!-- SPECIALIZATION -->
 <section id="specialization">
   <h2>Specialization</h2>
-
   <div class="card">
-    <p>
-      Although I am still exploring different areas within cybersecurity, 
-      I am particularly interested in digital forensics.
-    </p>
-
-    <p>
-      My goal is to focus my professional career on analyzing security incidents, 
-      investigating digital evidence, and understanding how cyberattacks occur and can be traced.
-    </p>
+    I am interested in digital forensics and cybersecurity investigation, focusing on analyzing security incidents and digital evidence.
   </div>
 </section>
 
-<!-- FUTURE PLAN -->
 <section id="plan">
   <h2>Future Plan</h2>
-
   <div class="card">
-    <p>
-      In the coming years, I plan to continue my education by pursuing a Master's degree in Cybersecurity 
-      to deepen my knowledge in this field.
-    </p>
-
-    <p>
-      I also aim to gain practical experience through real-world projects and professional environments.
-    </p>
+    My goal is to study a Master's degree in Cybersecurity and specialize in forensic analysis and incident response.
   </div>
 </section>
 
-<!-- PROJECTS -->
 <section id="projects">
   <h2>Projects</h2>
-
   <div class="card">
-    <h3>Hotel Costa Management System</h3>
-    <p>
-      Development of a complete hotel management application using Python and PostgreSQL.
-    </p>
-
-    <ul>
-      <li>User authentication system (login/register)</li>
-      <li>Reservation and client management</li>
-      <li>Graphical interface built with Tkinter</li>
-      <li>Database integration and data handling</li>
-      <li>API communication and data export features</li>
-    </ul>
-
-    <p>
-      This project helped me strengthen my skills in backend development, databases, and software design.
-    </p>
+    <h3>Hotel Costa</h3>
+    <p>Python + PostgreSQL management system with GUI, authentication and reservations.</p>
   </div>
 </section>
 
-<!-- CONTACT -->
 <section id="contact">
   <h2>Contact</h2>
-
   <div class="card">
-    <p>Email: <strong>viscagliamartin@gmail.com</strong></p>
-    <p>GitHub: <a href="https://github.com/zzz-l629" target="_blank">github.com/zzz-l629</a></p>
+    Email: viscagliamartin@gmail.com<br>
+    GitHub: https://github.com/zzz-l629
   </div>
 </section>
 
 <footer>
-  <p>© 2026 Martín Viscaglia | Cybersecurity Portfolio</p>
+  © 2026 Martín Viscaglia - Cybersecurity Portfolio
 </footer>
 
 </body>
