@@ -1,289 +1,667 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ca">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Martín Viscaglia - Cybersecurity Portfolio</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IPOP ASIX2 – Martín Viscaglia</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0a0e17;
+      --accent: #00e5a0;
+      --accent2: #00b8ff;
+      --text: #e8edf5;
+      --muted: #6b7a9a;
+      --border: rgba(255,255,255,0.07);
+      --card: rgba(255,255,255,0.04);
+      --card-hover: rgba(255,255,255,0.07);
+      --radius: 12px;
+      --radius-sm: 8px;
+    }
 
-<style>
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
-  }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
 
-  body {
-    background: #0a0f1f;
-    color: #e2e8f0;
-    overflow-x: hidden;
-  }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
 
-  /* Floating squares background */
-  .background {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
-    overflow: hidden;
-  }
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 0;
+    }
 
-  .square {
-    position: absolute;
-    width: 40px;
-    height: 40px;
-    background: rgba(56, 189, 248, 0.08);
-    border: 1px solid rgba(56, 189, 248, 0.25);
-    border-radius: 8px;
-    animation: float 15s linear infinite;
-  }
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 2.5rem; height: 60px;
+      background: rgba(10,14,23,0.88);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 15px; color: var(--text); }
+    .nav-logo span { color: var(--accent); }
+    .nav-links { display: flex; gap: 2px; }
+    .nav-link {
+      padding: 6px 13px; border-radius: 99px; font-size: 13px; font-weight: 400;
+      color: var(--muted); cursor: pointer; border: none; background: transparent;
+      font-family: 'DM Sans', sans-serif; transition: color 0.2s, background 0.2s;
+    }
+    .nav-link:hover { color: var(--text); background: var(--card); }
+    .nav-link.active { color: var(--accent); background: rgba(0,229,160,0.1); }
+    .nav-badge { font-family: 'Syne', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; color: var(--muted); text-transform: uppercase; }
 
-  .square:nth-child(1) { left: 10%; animation-duration: 18s; }
-  .square:nth-child(2) { left: 25%; animation-duration: 22s; }
-  .square:nth-child(3) { left: 40%; animation-duration: 16s; }
-  .square:nth-child(4) { left: 60%; animation-duration: 20s; }
-  .square:nth-child(5) { left: 80%; animation-duration: 14s; }
+    /* PAGES */
+    .page { display: none; padding-top: 60px; min-height: 100vh; position: relative; z-index: 1; }
+    .page.active { display: block; }
+    .container { max-width: 800px; margin: 0 auto; padding: 3rem 2rem; }
 
-  @keyframes float {
-    0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
-    50% { opacity: 1; }
-    100% { transform: translateY(-120vh) rotate(360deg); opacity: 0; }
-  }
+    /* HERO */
+    .hero { padding: 4rem 2rem 2.5rem; max-width: 800px; margin: 0 auto; position: relative; }
+    .hero-glow {
+      position: absolute; top: 40px; left: 50%; transform: translateX(-50%);
+      width: 500px; height: 280px;
+      background: radial-gradient(ellipse at center, rgba(0,229,160,0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
 
-  header {
-    text-align: center;
-    padding: 60px 20px 20px;
-    position: relative;
-    z-index: 1;
-  }
+    /* PHOTO */
+    .hero-top { display: flex; align-items: flex-start; gap: 2rem; margin-bottom: 2rem; flex-wrap: wrap; }
+    .photo-wrap { position: relative; flex-shrink: 0; }
+    .photo-circle {
+      width: 110px; height: 110px; border-radius: 50%;
+      border: 2px solid rgba(0,229,160,0.35);
+      object-fit: cover; display: block;
+      background: rgba(255,255,255,0.04);
+    }
+    .photo-placeholder {
+      width: 110px; height: 110px; border-radius: 50%;
+      border: 2px dashed rgba(0,229,160,0.35);
+      background: rgba(0,229,160,0.04);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      cursor: pointer; transition: background 0.2s;
+      color: var(--muted); font-size: 11px; text-align: center; gap: 5px;
+    }
+    .photo-placeholder:hover { background: rgba(0,229,160,0.09); }
+    .photo-placeholder svg { width: 22px; height: 22px; stroke: var(--accent); }
+    #photo-input { display: none; }
 
-  header h1 {
-    font-size: 2.5rem;
-    color: #38bdf8;
-  }
+    .hero-info { flex: 1; min-width: 220px; }
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 5px 12px; border-radius: 99px;
+      border: 1px solid rgba(0,229,160,0.3);
+      background: rgba(0,229,160,0.06);
+      color: var(--accent); font-size: 12px; font-weight: 500;
+      margin-bottom: 0.75rem;
+    }
+    .hero-tag::before {
+      content: ''; width: 6px; height: 6px; border-radius: 50%;
+      background: var(--accent); animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.7); }
+    }
+    .hero-name {
+      font-family: 'Syne', sans-serif; font-weight: 800;
+      font-size: clamp(28px, 4.5vw, 44px); line-height: 1.1;
+      margin-bottom: 0.5rem; color: var(--text);
+    }
+    .hero-name .name-accent { color: var(--accent); }
+    .hero-subtitle { font-size: 16px; color: var(--muted); font-weight: 300; margin-bottom: 1rem; line-height: 1.5; }
+    .hero-desc { font-size: 14.5px; color: rgba(232,237,245,0.72); line-height: 1.8; max-width: 540px; margin-bottom: 1.5rem; }
 
-  header p {
-    color: #94a3b8;
-    margin-top: 10px;
-  }
+    .hero-links { display: flex; gap: 10px; flex-wrap: wrap; }
+    .hero-btn {
+      display: inline-flex; align-items: center; gap: 7px;
+      padding: 8px 16px; border-radius: 99px; font-size: 13px; font-weight: 500;
+      font-family: 'DM Sans', sans-serif; text-decoration: none; cursor: pointer;
+      transition: all 0.2s; border: 1px solid var(--border);
+      background: var(--card); color: var(--text);
+    }
+    .hero-btn:hover { border-color: rgba(0,229,160,0.4); color: var(--accent); background: rgba(0,229,160,0.06); }
+    .hero-btn svg { width: 14px; height: 14px; }
 
-  nav {
-    text-align: center;
-    padding: 15px;
-    position: sticky;
-    top: 0;
-    background: rgba(15, 23, 42, 0.85);
-    backdrop-filter: blur(10px);
-    z-index: 2;
-  }
+    /* CARDS GRID */
+    .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+    .card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 1.25rem;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .card:hover { background: var(--card-hover); border-color: rgba(255,255,255,0.12); }
+    .card-icon {
+      width: 36px; height: 36px; border-radius: 9px;
+      background: rgba(0,229,160,0.1);
+      display: flex; align-items: center; justify-content: center; margin-bottom: 0.85rem;
+    }
+    .card-icon svg { width: 18px; height: 18px; stroke: var(--accent); }
+    .card-title { font-family: 'Syne', sans-serif; font-weight: 600; font-size: 14px; margin-bottom: 5px; }
+    .card-text { font-size: 13px; color: var(--muted); line-height: 1.6; }
 
-  nav a {
-    color: #e2e8f0;
-    margin: 0 12px;
-    text-decoration: none;
-  }
+    /* SECTION HEADERS */
+    .sec-header { margin-bottom: 2rem; }
+    .sec-tag { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 6px; display: block; }
+    .sec-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 24px; color: var(--text); line-height: 1.2; }
+    .sec-desc { font-size: 14px; color: var(--muted); margin-top: 7px; line-height: 1.7; }
 
-  nav a:hover {
-    color: #38bdf8;
-  }
+    /* TAGS */
+    .tags { display: flex; flex-wrap: wrap; gap: 7px; }
+    .tag {
+      padding: 5px 12px; border-radius: 6px; font-size: 12px; font-weight: 500;
+      border: 1px solid var(--border); background: var(--card);
+      color: rgba(232,237,245,0.7); transition: all 0.15s;
+    }
+    .tag.primary { background: rgba(0,229,160,0.08); border-color: rgba(0,229,160,0.25); color: var(--accent); }
+    .tag.secondary { background: rgba(0,184,255,0.07); border-color: rgba(0,184,255,0.2); color: var(--accent2); }
 
-  section {
-    max-width: 900px;
-    margin: auto;
-    padding: 60px 20px;
-    position: relative;
-    z-index: 1;
-  }
+    /* COMP BLOCKS */
+    .comp-block { margin-bottom: 1.75rem; }
+    .comp-label {
+      display: flex; align-items: center; gap: 8px;
+      font-family: 'Syne', sans-serif; font-weight: 600; font-size: 14px;
+      color: var(--text); margin-bottom: 12px;
+    }
+    .comp-label svg { width: 15px; height: 15px; stroke: var(--accent); }
 
-  h2 {
-    color: #38bdf8;
-    margin-bottom: 15px;
-  }
+    /* TIMELINE */
+    .timeline { position: relative; padding-left: 1.5rem; }
+    .timeline::before {
+      content: ''; position: absolute; left: 5px; top: 8px; bottom: 0;
+      width: 1px; background: linear-gradient(to bottom, var(--accent), rgba(0,229,160,0.08));
+    }
+    .tl-item { position: relative; margin-bottom: 1.75rem; }
+    .tl-dot {
+      position: absolute; left: -1.5rem; top: 5px;
+      width: 11px; height: 11px; border-radius: 50%;
+      background: var(--accent); box-shadow: 0 0 0 3px rgba(0,229,160,0.18);
+    }
+    .tl-year { font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin-bottom: 3px; }
+    .tl-title { font-family: 'Syne', sans-serif; font-weight: 600; font-size: 15px; margin-bottom: 2px; }
+    .tl-place { font-size: 13px; color: var(--accent2); margin-bottom: 5px; }
+    .tl-desc { font-size: 13px; color: var(--muted); line-height: 1.7; }
 
-  .card {
-    background: rgba(30, 41, 59, 0.85);
-    padding: 20px;
-    border-radius: 12px;
-    margin-top: 15px;
-    transition: 0.3s;
-  }
+    /* SPEC */
+    .spec-grid { display: grid; gap: 10px; }
+    .spec-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 1.1rem 1.35rem;
+      cursor: pointer; transition: all 0.2s;
+    }
+    .spec-card:hover { background: var(--card-hover); }
+    .spec-card.selected { border-color: var(--accent); background: rgba(0,229,160,0.04); }
+    .spec-header { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+    .spec-icon {
+      width: 34px; height: 34px; border-radius: 8px;
+      background: rgba(0,229,160,0.1);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .spec-icon svg { width: 17px; height: 17px; stroke: var(--accent); }
+    .spec-name { font-family: 'Syne', sans-serif; font-weight: 600; font-size: 14px; }
+    .spec-badge {
+      margin-left: auto; padding: 3px 10px; border-radius: 99px;
+      font-size: 11px; font-weight: 600;
+      background: rgba(0,229,160,0.15); color: var(--accent);
+    }
+    .spec-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
 
-  .card:hover {
-    transform: translateY(-5px);
-  }
+    /* CONTACT */
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+    @media (max-width: 580px) { .contact-grid { grid-template-columns: 1fr; } }
 
-  ul {
-    padding-left: 20px;
-    margin-top: 10px;
-  }
+    .contact-info-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 1.35rem;
+    }
+    .contact-row {
+      display: flex; align-items: flex-start; gap: 11px;
+      padding: 11px 0; border-bottom: 1px solid var(--border);
+    }
+    .contact-row:last-child { border-bottom: none; padding-bottom: 0; }
+    .contact-row svg { width: 16px; height: 16px; stroke: var(--accent); margin-top: 2px; flex-shrink: 0; }
+    .contact-row-label { font-size: 11px; color: var(--muted); margin-bottom: 2px; text-transform: uppercase; letter-spacing: 0.06em; }
+    .contact-row-val { font-size: 13.5px; color: var(--text); }
+    .contact-row-val a { color: var(--accent); text-decoration: none; }
+    .contact-row-val a:hover { text-decoration: underline; }
 
-  .profile {
-    text-align: center;
-    margin-top: 20px;
-  }
+    .form-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.35rem; }
+    .form-title { font-family: 'Syne', sans-serif; font-weight: 600; font-size: 14px; margin-bottom: 1.1rem; }
+    .form-group { margin-bottom: 0.85rem; }
+    .form-group label { display: block; font-size: 12px; color: var(--muted); margin-bottom: 4px; }
+    .form-group input, .form-group textarea {
+      width: 100%; padding: 8px 11px;
+      background: rgba(255,255,255,0.05); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); color: var(--text);
+      font-family: 'DM Sans', sans-serif; font-size: 13px; outline: none;
+      transition: border-color 0.2s;
+    }
+    .form-group input:focus, .form-group textarea:focus { border-color: rgba(0,229,160,0.4); }
+    .form-group textarea { height: 80px; resize: vertical; }
 
-  .profile img {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    border: 3px solid #38bdf8;
-    object-fit: cover;
-  }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 7px;
+      padding: 9px 20px; border-radius: 99px;
+      background: var(--accent); color: #0a0e17;
+      font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600;
+      border: none; cursor: pointer; transition: opacity 0.2s, transform 0.15s;
+    }
+    .btn-primary:hover { opacity: 0.85; transform: translateY(-1px); }
+    .btn-primary svg { width: 14px; height: 14px; stroke: #0a0e17; }
 
-  footer {
-    text-align: center;
-    padding: 25px;
-    background: #0f172a;
-    color: #64748b;
-  }
+    .divider { height: 1px; background: var(--border); margin: 1.75rem 0; }
 
-  a {
-    color: #38bdf8;
-  }
-</style>
+    .note {
+      background: rgba(0,229,160,0.04);
+      border-left: 2px solid rgba(0,229,160,0.35);
+      padding: 10px 14px;
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      font-size: 13px; color: var(--muted); line-height: 1.6; margin-top: 1.5rem;
+    }
+    .note strong { color: var(--accent); font-weight: 500; }
+
+    .plan-comm { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-top: 1rem; }
+    .comm-item {
+      display: flex; align-items: center; gap: 9px; padding: 11px 12px;
+      border-radius: var(--radius-sm); background: var(--card); border: 1px solid var(--border);
+      font-size: 13px; color: var(--muted);
+    }
+    .comm-item svg { width: 16px; height: 16px; stroke: var(--accent); flex-shrink: 0; }
+
+    @media (max-width: 600px) {
+      nav { padding: 0 1rem; }
+      .nav-badge { display: none; }
+      .nav-link { padding: 5px 8px; font-size: 12px; }
+      .hero { padding: 3rem 1rem 2rem; }
+      .container { padding: 2rem 1rem; }
+      .hero-top { flex-direction: column; align-items: center; text-align: center; }
+    }
+  </style>
 </head>
-
 <body>
 
-<div class="background">
-  <div class="square"></div>
-  <div class="square"></div>
-  <div class="square"></div>
-  <div class="square"></div>
-  <div class="square"></div>
-</div>
-
-<header>
-  <h1>Martín Viscaglia Serrano</h1>
-  <p>ASIX Student | Cybersecurity </p>
-
-  <div class="profile">
-    <img src="https://github.com/Martin1171/portfolio/blob/main/foto.jpg" alt="">
-  </div>
-</header>
-
 <nav>
-  <a href="#home">Home</a>
-  <a href="#skills">Skills</a>
-  <a href="#specialization">Specialization</a>
-  <a href="#plan">Future</a>
-  <a href="#projects">Projects</a>
-  <a href="#contact">Contact</a>
+  <span class="nav-logo">IPOP <span>ASIX2</span></span>
+  <div class="nav-links">
+    <button class="nav-link active" onclick="show('inici',this)">Inici</button>
+    <button class="nav-link" onclick="show('curriculum',this)">Currículum</button>
+    <button class="nav-link" onclick="show('especialitzacio',this)">Especialització</button>
+    <button class="nav-link" onclick="show('pla',this)">Pla formació</button>
+    <button class="nav-link" onclick="show('contacte',this)">Contacte</button>
+  </div>
+  <span class="nav-badge">Lloret de Mar · 2025</span>
 </nav>
 
-<section id="home">
-  <h2>About Me</h2>
-  <div class="card">
-    <p>
-      I am a student of ASIX (Network Systems Administration) with a strong interest in cybersecurity,
-      especially digital forensics.
-    </p>
+<!-- ══════════════════════════════════════
+     INICI
+══════════════════════════════════════ -->
+<section id="inici" class="page active">
+  <div class="hero">
+    <div class="hero-glow"></div>
 
-    <p>
-      I am passionate about understanding how cyberattacks happen, how systems are compromised,
-      and how digital evidence can be analyzed to reconstruct security incidents.
-    </p>
+    <div class="hero-top">
+      <!-- FOTO: clica per afegir la teva foto -->
+      <div class="photo-wrap">
+        <input type="file" id="photo-input" accept="image/*" onchange="loadPhoto(event)" />
+        <div class="photo-placeholder" id="photo-placeholder" onclick="document.getElementById('photo-input').click()">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+            <circle cx="12" cy="7" r="4"/>
+          </svg>
+          Afegir foto
+        </div>
+        <img id="photo-img" class="photo-circle" style="display:none;" alt="Foto de perfil de Martín Viscaglia" />
+      </div>
 
-    <p>
-      My goal is to specialize in cybersecurity and build a professional career focused on investigation,
-      incident response, and system protection.
-    </p>
+      <div class="hero-info">
+        <div class="hero-tag">Estudiant ASIX2 · Lloret de Mar</div>
+        <h1 class="hero-name">
+          Martín Ignacio<br>
+          <span class="name-accent">Viscaglia Serrano</span>
+        </h1>
+        <p class="hero-subtitle">Apassionat per la ciberseguretat i els sistemes</p>
+        <p class="hero-desc">
+          Estic acabant el cicle d'ASIX a Lloret de Mar. M'agrada molt tot el que té a veure amb la seguretat informàtica: com funcionen els atacs, com protegir sistemes i xarxes, i com detectar problemes. He fet pràctiques en dos centres de la zona i tinc ganes de seguir creixent en aquest sector.
+        </p>
+        <div class="hero-links">
+          <a class="hero-btn" href="#">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+            LinkedIn
+          </a>
+          <a class="hero-btn" href="mailto:m.viscaglia@sapalomera.cat">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            Contactar
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="cards-grid">
+      <div class="card">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        </div>
+        <div class="card-title">Ciberseguretat</div>
+        <div class="card-text">El meu tema favorit. M'interessa tot: atacs, defensa, anàlisi de vulnerabilitats...</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        </div>
+        <div class="card-title">Sistemes Linux i Windows</div>
+        <div class="card-text">Administració de servidors, gestió d'usuaris i manteniment de màquines.</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <div class="card-title">Xarxes</div>
+        <div class="card-text">Configuració de routers i switches, VPN, i resolució d'incidències de xarxa.</div>
+      </div>
+    </div>
   </div>
 </section>
 
-<section id="skills">
-  <h2>Skills</h2>
+<!-- ══════════════════════════════════════
+     CURRÍCULUM
+══════════════════════════════════════ -->
+<section id="curriculum" class="page">
+  <div class="container">
+    <div class="sec-header">
+      <span class="sec-tag">02 · Qui sóc</span>
+      <h2 class="sec-title">Currículum per competències</h2>
+      <p class="sec-desc">El que he après durant el cicle i a les pràctiques, tant a nivell tècnic com personal.</p>
+    </div>
 
-  <div class="card">
-    <h3>Technical Skills</h3>
-    <ul>
-      <li>Linux and Windows Server administration</li>
-      <li>Network configuration (VLANs, DHCP, DNS, routing)</li>
-      <li>Wireshark and network analysis</li>
-      <li>Cybersecurity basics (hardening, access control)</li>
-      <li>Python and Bash scripting</li>
-      <li>PostgreSQL database management</li>
-      <li>Virtualization and system deployment</li>
-    </ul>
+    <div class="comp-label">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+      Pràctiques professionals (FCT)
+    </div>
 
-    <h3>Soft Skills</h3>
-    <ul>
-      <li>Teamwork</li>
-      <li>Problem solving</li>
-      <li>Responsibility</li>
-      <li>Autonomous learning</li>
-    </ul>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">2024 – 2025</div>
+        <div class="tl-title">Pràctiques en informàtica</div>
+        <div class="tl-place">Institut Coll i Rodés · Lloret de Mar</div>
+        <div class="tl-desc">
+          Manteniment dels ordinadors del centre, resolució d'incidències dels usuaris, gestió de la xarxa i configuració d'equips. Va ser la meva primera experiència en un entorn real i em va ensenyar molt sobre el suport tècnic del dia a dia.
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">2024 – 2025</div>
+        <div class="tl-title">Pràctiques en informàtica</div>
+        <div class="tl-place">Centre de Formació d'Adults · Lloret de Mar</div>
+        <div class="tl-desc">
+          Suport tècnic als professors i alumnes del centre, manteniment d'equips i ajuda amb la connexió a la xarxa. Vaig aprendre a comunicar-me millor amb persones que no tenen coneixements tècnics.
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="comp-block">
+      <div class="comp-label">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        El que sé fer (tècnic)
+      </div>
+      <div class="tags">
+        <span class="tag primary">Linux</span>
+        <span class="tag primary">Windows Server</span>
+        <span class="tag primary">Seguretat de xarxes</span>
+        <span class="tag">Configuració de routers</span>
+        <span class="tag">Active Directory</span>
+        <span class="tag">Bash bàsic</span>
+        <span class="tag">Virtualització</span>
+        <span class="tag">Suport tècnic</span>
+      </div>
+    </div>
+
+    <div class="comp-block">
+      <div class="comp-label">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        Com sóc com a persona
+      </div>
+      <div class="tags">
+        <span class="tag secondary">Resolutiu</span>
+        <span class="tag secondary">Treballador</span>
+        <span class="tag secondary">Ganes d'aprendre</span>
+        <span class="tag">Treball en equip</span>
+        <span class="tag">Puntual i responsable</span>
+        <span class="tag">Sé explicar coses tècniques de forma senzilla</span>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="comp-label">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+      Com em vull donar a conèixer
+    </div>
+    <div class="plan-comm">
+      <div class="comm-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        Perfil de LinkedIn
+      </div>
+      <div class="comm-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        Currículum actualitzat
+      </div>
+    </div>
   </div>
 </section>
 
-<section id="specialization">
-  <h2>Specialization</h2>
+<!-- ══════════════════════════════════════
+     ESPECIALITZACIÓ
+══════════════════════════════════════ -->
+<section id="especialitzacio" class="page">
+  <div class="container">
+    <div class="sec-header">
+      <span class="sec-tag">03 · On vull arribar</span>
+      <h2 class="sec-title">Àmbit d'especialització</h2>
+      <p class="sec-desc">Tinc clar que vull treballar en ciberseguretat. M'apassiona entendre com funcionen els atacs per poder defensar millor els sistemes.</p>
+    </div>
 
-  <div class="card">
-    <p>
-      My main interest within cybersecurity is digital forensic analysis.
-    </p>
+    <div class="spec-grid">
+      <div class="spec-card selected" onclick="selectSpec(this)">
+        <div class="spec-header">
+          <div class="spec-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          </div>
+          <span class="spec-name">Analista de Ciberseguretat</span>
+          <span class="spec-badge">La meva elecció</span>
+        </div>
+        <p class="spec-desc">Monitoritzar sistemes per detectar atacs, analitzar incidents i protegir la infraestructura d'una empresa. Vull treballar en un equip de seguretat (SOC) o en una consultora del sector.</p>
+      </div>
 
-    <p>
-      I want to focus my career on investigating security incidents, analyzing digital evidence,
-      and understanding cyberattack techniques to improve system defense.
-    </p>
+      <div class="spec-card" onclick="selectSpec(this)">
+        <div class="spec-header">
+          <div class="spec-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          </div>
+          <span class="spec-name">Ethical Hacking / Pentester</span>
+        </div>
+        <p class="spec-desc">Fer proves d'intrusió a sistemes per trobar vulnerabilitats abans que ho facin els atacants. M'atreu molt aquest camí, tot i que requereix molta formació addicional.</p>
+      </div>
+
+      <div class="spec-card" onclick="selectSpec(this)">
+        <div class="spec-header">
+          <div class="spec-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          </div>
+          <span class="spec-name">Administrador de Sistemes</span>
+        </div>
+        <p class="spec-desc">Gestió de servidors i infraestructures IT en empreses. Una opció més accessible com a primer pas, i que m'agrada bastant.</p>
+      </div>
+    </div>
   </div>
 </section>
 
-<section id="plan">
-  <h2>Future Plan</h2>
+<!-- ══════════════════════════════════════
+     PLA DE FORMACIÓ
+══════════════════════════════════════ -->
+<section id="pla" class="page">
+  <div class="container">
+    <div class="sec-header">
+      <span class="sec-tag">04 · Els meus pròxims passos</span>
+      <h2 class="sec-title">Pla de formació</h2>
+      <p class="sec-desc">El que tinc pensat fer un cop acabi el cicle per seguir aprenent i trobar feina en el sector.</p>
+    </div>
 
-  <div class="card">
-    <p>
-      I plan to complete my ASIX studies and continue developing practical experience through real projects.
-    </p>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">2025 · Ara</div>
+        <div class="tl-title">Acabar el cicle ASIX</div>
+        <div class="tl-place">Lloret de Mar</div>
+        <div class="tl-desc">
+          Finalitzar les pràctiques i treure el títol. Tancar bé aquesta etapa per poder donar el següent pas.
+        </div>
+      </div>
 
-    <p>
-      In the future, I aim to study a Master's degree in Cybersecurity to specialize further.
-    </p>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">2025 – 2026</div>
+        <div class="tl-title">Aprendre ciberseguretat pel meu compte</div>
+        <div class="tl-place">Online (TryHackMe, YouTube, cursos gratuïts)</div>
+        <div class="tl-desc">
+          Practicar en plataformes de hacking ètic, seguir tutorials i fer petits reptes. No cal gastar diners per aprendre si tens ganes.
+        </div>
+      </div>
 
-    <p>
-      My long-term goal is to work in digital forensics and incident response.
-    </p>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">2026</div>
+        <div class="tl-title">Buscar la meva primera feina en IT</div>
+        <div class="tl-place">Comarca de la Selva o Barcelona</div>
+        <div class="tl-desc">
+          Amb el títol i una mica d'experiència extra, buscar feina en una empresa de la zona o a Barcelona. Obert a qualsevol posició IT per anar agafant experiència real.
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">2027 en endavant</div>
+        <div class="tl-title">Seguir formant-me</div>
+        <div class="tl-place">Certificacions o universitat</div>
+        <div class="tl-desc">
+          Un cop treballant, fer alguna certificació (com la CompTIA Security+) o estudiar un grau en informàtica. Anar pujant de nivell poc a poc.
+        </div>
+      </div>
+    </div>
+
+    <div class="note">
+      <strong>Una altra idea:</strong> M'agradaria poder oferir serveis de manteniment informàtic a petites empreses de Lloret, com a feina extra o fins i tot com a projecte propi algun dia.
+    </div>
   </div>
 </section>
 
-<section id="projects">
-  <h2>Projects</h2>
+<!-- ══════════════════════════════════════
+     CONTACTE
+══════════════════════════════════════ -->
+<section id="contacte" class="page">
+  <div class="container">
+    <div class="sec-header">
+      <span class="sec-tag">05 · Parlem</span>
+      <h2 class="sec-title">Contacte</h2>
+      <p class="sec-desc">Si vols contactar amb mi per qualsevol tema professional, aquí tens les meves dades.</p>
+    </div>
 
-  <div class="card">
-    <h3>Hotel Costa Management System</h3>
-    <p>
-      Python + PostgreSQL desktop application for hotel management.
-    </p>
+    <div class="contact-grid">
+      <div class="contact-info-card">
+        <div class="contact-row">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <div>
+            <div class="contact-row-label">Correu electrònic</div>
+            <div class="contact-row-val"><a href="mailto:m.viscaglia@sapalomera.cat">m.viscaglia@sapalomera.cat</a></div>
+          </div>
+        </div>
+        <div class="contact-row">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          <div>
+            <div class="contact-row-label">LinkedIn</div>
+            <div class="contact-row-val"><a href="#">linkedin.com/in/martin-viscaglia</a></div>
+          </div>
+        </div>
+      </div>
 
-    <ul>
-      <li>User login and registration system</li>
-      <li>Reservation management</li>
-      <li>Client database system</li>
-      <li>Graphical interface with Tkinter</li>
-      <li>API integration and data export</li>
-    </ul>
-
-    <p>
-      This project helped me improve backend development, databases, and system integration skills.
-    </p>
+      <div class="form-card">
+        <div class="form-title">Envia'm un missatge</div>
+        <div class="form-group">
+          <label>Nom</label>
+          <input type="text" placeholder="El teu nom" />
+        </div>
+        <div class="form-group">
+          <label>Correu electrònic</label>
+          <input type="email" placeholder="correu@exemple.com" />
+        </div>
+        <div class="form-group">
+          <label>Missatge</label>
+          <textarea placeholder="En què et puc ajudar?"></textarea>
+        </div>
+        <div style="display:flex;align-items:center;">
+          <button class="btn-primary" onclick="sendMsg()">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            Enviar
+          </button>
+          <span id="sent-msg" style="display:none;margin-left:12px;font-size:13px;color:#00e5a0;">✓ Enviat!</span>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
-<section id="contact">
-  <h2>Contact</h2>
+<script>
+  function show(id, btn) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-link').forEach(b => b.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    btn.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
 
-  <div class="card">
-    <p>Email: <strong>viscagliamartin@gmail.com</strong></p>
-    <p>GitHub: <a href="https://github.com/zzz-l629/Projecte-Hotel-Costa" target="_blank">github.com/zzz-l629</a></p>
-  </div>
-</section>
+  function loadPhoto(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(ev) {
+      const img = document.getElementById('photo-img');
+      const ph  = document.getElementById('photo-placeholder');
+      img.src = ev.target.result;
+      img.style.display = 'block';
+      ph.style.display  = 'none';
+    };
+    reader.readAsDataURL(file);
+  }
 
-<footer>
-  © 2026 Martín Viscaglia - Cybersecurity Portfolio
-</footer>
+  function selectSpec(el) {
+    document.querySelectorAll('.spec-card').forEach(c => {
+      c.classList.remove('selected');
+      const b = c.querySelector('.spec-badge');
+      if (b) b.remove();
+    });
+    el.classList.add('selected');
+    const badge = document.createElement('span');
+    badge.className = 'spec-badge';
+    badge.textContent = 'La meva elecció';
+    el.querySelector('.spec-header').appendChild(badge);
+  }
+
+  function sendMsg() {
+    const msg = document.getElementById('sent-msg');
+    msg.style.display = 'inline';
+    setTimeout(() => { msg.style.display = 'none'; }, 3000);
+  }
+</script>
 
 </body>
 </html>
